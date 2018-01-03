@@ -32,7 +32,7 @@ router.post('/tasks',(req,res,next)=>{
 });
 
 router.delete('/tasks/:id',(req,res,next)=>{
-    db.tasks.remove({_id:mongojs.ObjectId(req.params.id)},(err,result)=>{
+    db.tasks.remove({_id: mongojs.ObjectId(req.params.id)},(err,result)=>{
         if(err){return next(err)};
         res.json(result);
     });
@@ -44,7 +44,7 @@ router.put('/tasks/:id',(req,res,next)=>{
     if(task.isDone){updateTask.isDone=task.isDone}
     if(task.title){updateTask.title=task.title}
     if(!updateTask){res.status(400).json({err:"Bad data"})}else{
-        db.tasks.update({_id:mongojs.ObjectId(req.params.id)},(err,task)=>{
+        db.tasks.update({_id:mongojs.ObjectId(req.params.id)},updateTask,(err,task)=>{
             if(err){return next(err)};
             res.json(task);
         });
